@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
+    <meta charset="UTF-8">
+    <title>User page</title>
+</head>
+<body>
+<div class="container-fluid" style="background-color: rgba(53,58,63,0.99)">
+    <div class="row">
+        <div class="col-md-11">
+            <a class="navbar-brand" style="color: white" id="uroles"> <b>
+
+            </b></a>
+        </div>
+        <div class="col-md-1">
+            <a class="navbar-brand" style="color:rgba(155,157,160,0.99)" href="/logout">
+                Logout
+            </a>
+        </div>
+    </div>
+</div>
+<div class="row" style="background-color: white">
+    <div class="col-md-2">
+        <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+            <li class="nav-link active">
+                <a href="/user" style="color: white">User</a>
+            </li>
+        </div>
+    </div>
+    <div class="container col-md-10" style="background-color: rgba(248,249,250,0.99)">
+        <h2>User information-page</h2>
+
+        <div class="tab-content" id="myTabContent">
+            <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                <div class="container d-inline-flex p-2">
+                    <h3>About user</h3>
+                </div>
+                <div style="background-color: white">
+                    <table class="table table-striped">
+                        <thead>
+                        <tr>
+                            <th>id</th>
+                            <th>First Name</th>
+                            <th>Last Name</th>
+                            <th>Age</th>
+                            <th>Email</th>
+                            <th>Role</th>
+
+                        </tr>
+                        </thead>
+                        <tbody id="userInfo">
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="https://code.jquery.com/jquery-3.5.0.js"
+        integrity="sha256-r/AaFHrszJtwpe+tHyNi/XCfMxYpbsRg2Uqn0x3s2zc="
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+
+<script type="text/javascript" src="/static/user.js"></script>
+</body>
+</html>
