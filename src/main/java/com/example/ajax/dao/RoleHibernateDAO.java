@@ -9,12 +9,17 @@ import javax.persistence.EntityManager;
 import java.util.List;
 
 @Repository
-public class RoleHibernateDAO {
+public class RoleHibernateDAO implements RoleDAO {
     @Autowired
     private EntityManager entityManager;
 
-    public List<User> findAllRoles() {
-        return entityManager.createQuery("SELECT r FROM Role r").getResultList();
+    @Override
+    public Role getRoleById(long id) {
+        Role role = (Role) entityManager
+                .createQuery("SELECT r FROM Role r  WHERE r.id=:id", Role.class)
+                .setParameter("id", id)
+                .getSingleResult();
+        return role;
     }
 
     public Role getByName(String name) {

@@ -41,7 +41,7 @@ public class User implements UserDetails {
 
     public User(){}
 
-    public User(Long id, String name, String lastName,  int age, String email, String password, Set<Role>roles){
+    public User(Long id, String name, String lastName,  int age, String password, String email, Set<Role>roles){
         this.id = id;
         this.userName = name;
         this.lastName = lastName;
@@ -86,7 +86,6 @@ public class User implements UserDetails {
 
         return userName;
     }
-
 
     public Long getId() {
         return id;

@@ -2,17 +2,23 @@ let map = new Map();
 $users = $('#users');
 $admin = $('#adminrole');
 $userInfo = $('#userInfo');
+
+
 $(document).ready(function() {
     showUsers();
 });
+
 $('#userlist').on('click', function (event){
+    $users.empty()
     showUsers();
 });
+
 function showUsers() {
     $.ajax({
         type: 'GET',
         url: '/admin/allUsers',
         success: function (users) {
+            $users.empty()
             $.each(users, function (i, user) {
 
                 map.set(user.id, user);
@@ -57,6 +63,7 @@ $(document).ready(function () {
         $(".modal-body #editemail").val(updateEmail);
         $(".modal-body #editpassword").val(updatePassword);
 
+
         $("#Editsubmit").on('click', function (event) {
 
             let roles = {id: 1, name: $('#editrole').val()[0]};
@@ -81,7 +88,7 @@ $(document).ready(function () {
                     $users.empty()
                     showUsers();
                 },
-                error: console.log('error')
+
             });
 
 
@@ -166,10 +173,13 @@ $(document).ready(function () {
 
 
     $(document).ready(function() {
+
         $('#userPage').on('click', function (event) {
+
+
             $.ajax({
                 type: 'GET',
-                url: '/user/about',
+                url: '/user/get/userpage',
 
                 success: function (data) {
                     $users.empty()
@@ -186,7 +196,7 @@ $(document).ready(function () {
                     $('#users').append('<td>' + data.email + '</td>')
                     $('#users').append('<td>' + role + '</td>')
 
-                    let user;
+                    //let user;
                     $users.append('<td><button id="updateButton"  data-toggle="modal" data-target="#editModal" class="btn btn-primary"' +
                         'data-id="' + data.id + '" >Edit</button></td>')
                     $users.append('<td><button id="deleteButton"   class="remove"   class="btn btn-info" style="background: #dc143c"' +
@@ -195,12 +205,10 @@ $(document).ready(function () {
 
                     $('#users').append('<tr></tr>')
                 }
-
             })
-        });
-    });
+        })
 
-
+    })
 
 
 });

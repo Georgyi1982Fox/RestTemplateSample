@@ -1,5 +1,6 @@
 package com.example.ajax.service;
 
+import com.example.ajax.dao.RoleDAO;
 import com.example.ajax.dao.RoleHibernateDAO;
 import com.example.ajax.model.Role;
 import com.example.ajax.model.User;
@@ -10,17 +11,17 @@ import java.sql.SQLException;
 import java.util.List;
 
 @Service
-public class RoleService {
+public class RoleService implements RolService{
     @Autowired
-    private RoleHibernateDAO roleHibernateDAO;
-
-    @Transactional(readOnly = true)
-    public List<User> findAllRoles() throws SQLException {
-        return roleHibernateDAO.findAllRoles();
-    }
+    private RoleDAO roleDAO;
 
     @Transactional
-    public Role findByName(String name) {
-        return roleHibernateDAO.getByName(name);
+    @Override
+    public Role getRoleById(long id) {
+        return roleDAO.getRoleById(id);
     }
+
+
+
+
 }

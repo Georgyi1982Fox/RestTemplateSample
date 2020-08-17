@@ -25,7 +25,6 @@ public class UserController {
         User authUser = (User) authentication.getPrincipal();
         return new ResponseEntity<>(authUser, HttpStatus.OK);
     }
-
     @GetMapping("/get/userpage")
     public User getRole(Authentication authentication) {
         User authUser = (User) authentication.getPrincipal();

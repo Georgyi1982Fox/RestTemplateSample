@@ -28,8 +28,7 @@ public class UserHibernateDAO implements UserDAO {
 
         @Override
         public void updateUser(User user) throws SQLException {
-        Session currentSession = entityManager.unwrap(Session.class);
-        currentSession.update(user);
+                entityManager.merge(user);
         }
 
         @Override
@@ -38,17 +37,8 @@ public class UserHibernateDAO implements UserDAO {
                 .createQuery("SELECT u FROM User u JOIN FETCH u.roles WHERE u.id=:id", User.class)
                 .setParameter("id", id)
                 .getSingleResult();
-        User userEditById = new User(editUser.getId(), editUser.getUsername(), editUser.getLastName(), editUser.getAge(), editUser.getEmail(), editUser.getPassword(), editUser.getRoles());
+        User userEditById = new User(editUser.getId(), editUser.getUsername(), editUser.getLastName(), editUser.getAge(),editUser.getPassword(),editUser.getEmail(), editUser.getRoles());
         return userEditById;
-        }
-
-        @Override
-        public Role getRoleById(Long id){
-        Role role = (Role) entityManager
-                .createQuery("SELECT r FROM Role r  WHERE r.id=:id", Role.class)
-                .setParameter("id", id)
-                .getSingleResult();
-        return role;
         }
 
         @Override
@@ -64,6 +54,6 @@ public class UserHibernateDAO implements UserDAO {
         User user = currentSession.get(User.class, id);
         currentSession.delete(user);
         }
-   }
+}
 
 

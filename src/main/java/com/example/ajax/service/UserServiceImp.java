@@ -15,22 +15,20 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.SQLException;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Service
 public class UserServiceImp implements UserDetailsService, UserService{
     @Autowired
     private UserDAO userDAO;
 
-    @Autowired(required = true)
-    PasswordEncoder passwordEncoder;
-
     @Autowired
-    RoleHibernateDAO roleHibernateDAO;
+    BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @Autowired
     RoleDAO roleDAO;
-
 
     @Transactional(readOnly = true)
     public List<User> listAllUsers() throws SQLException {
@@ -39,46 +37,33 @@ public class UserServiceImp implements UserDetailsService, UserService{
 
     @Transactional
     public void updateUser(User user) throws SQLException {
-/*
-        User oldUser = userDAO.getUserById(user.getId());
-        oldUser.setEmail(user.getEmail());
-        oldUser.setUserName(user.getUserName());
-        oldUser.setLastName(user.getLastName());
-        oldUser.setAge(user.getAge());
-        //oldUser.setRoles(user.getRoles());
-        userDAO.addUser(oldUser);
-
- */
-
-
-        userDAO.updateUser(user);
+         userDAO.updateUser(user);
     }
 
     @Transactional
     public void addUser(User user) throws Exception {
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        Set<Role> roles = new HashSet<>();
+        if (user.getRoles().iterator().next().getName().contains("ADMIN")) {
+            roles.add(roleDAO.getRoleById(1L));
+        } else if (user.getRoles().iterator().next().getName().contains("USER")) {
+            roles.add(roleDAO.getRoleById(2L));
+        }
+        user.setRoles(roles);
+        user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         userDAO.addUser(user);
     }
-
     @Transactional
     public void deleteUser(Long id) throws SQLException {
         userDAO.deleteUser(id);
     }
-
     @Transactional
     public User getUserById(Long id) throws SQLException {
         return userDAO.getUserById(id);
     }
-
     @Transactional
     public User findUserByUserName(String userName) throws SQLException {
         return userDAO.findByUsername(userName);
     }
-
-    public Role getRoleById(long id) throws SQLException {
-        return userDAO.getRoleById(id);
-    }
-
     @Transactional(readOnly = true)
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
